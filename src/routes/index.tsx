@@ -4,32 +4,26 @@ import { useRef } from "react";
 import {
   ArrowRight,
   BarChart3,
-  Target,
   CheckCircle2,
   ChevronRight,
   Compass,
-  GraduationCap,
-  Handshake,
-  Layers,
-  LineChart as LineChartIcon,
-  Magnet,
+  Film,
+  Layout,
   MessageCircle,
-  Rocket,
+  Palette,
   Sparkles,
-  Star,
+  Target,
   TrendingUp,
-  Video,
+  Users,
   Zap,
 } from "lucide-react";
 import {
   Area,
   AreaChart,
-  Bar,
-  BarChart,
   CartesianGrid,
-  Cell,
-  Pie,
-  PieChart,
+  Legend as RLegend,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -39,6 +33,9 @@ import {
 import logoLight from "@/assets/logo-light.png.asset.json";
 import logoDark from "@/assets/logo-dark.png.asset.json";
 import portfolioImg from "@/assets/portfolio.png.asset.json";
+import marketing1 from "@/assets/marketing-1.jpg.asset.json";
+import marketing2 from "@/assets/marketing-2.jpg.asset.json";
+import marketing3 from "@/assets/marketing-3.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -46,33 +43,18 @@ export const Route = createFileRoute("/")({
 
 const WHATSAPP_URL = "https://wa.me/";
 
-/* ---------- Data for charts ---------- */
-const growthData = [
-  { m: "Jan", alcance: 12, leads: 4 },
-  { m: "Fev", alcance: 18, leads: 7 },
-  { m: "Mar", alcance: 26, leads: 11 },
-  { m: "Abr", alcance: 34, leads: 15 },
-  { m: "Mai", alcance: 48, leads: 22 },
-  { m: "Jun", alcance: 62, leads: 31 },
-  { m: "Jul", alcance: 79, leads: 42 },
+/* ---------- Dashboard data: redes sociais, usuários e Google ---------- */
+const performanceData = [
+  { m: "Jan", redes: 8, usuarios: 5, google: 4 },
+  { m: "Fev", redes: 12, usuarios: 7, google: 6 },
+  { m: "Mar", redes: 17, usuarios: 10, google: 9 },
+  { m: "Abr", redes: 22, usuarios: 14, google: 12 },
+  { m: "Mai", redes: 29, usuarios: 19, google: 17 },
+  { m: "Jun", redes: 36, usuarios: 25, google: 22 },
+  { m: "Jul", redes: 44, usuarios: 32, google: 28 },
 ];
 
-const channelData = [
-  { canal: "Instagram", conv: 38 },
-  { canal: "Meta Ads", conv: 52 },
-  { canal: "Google", conv: 44 },
-  { canal: "WhatsApp", conv: 61 },
-];
-
-const mixData = [
-  { name: "Orgânico", value: 34 },
-  { name: "Pago", value: 41 },
-  { name: "Remarketing", value: 25 },
-];
-
-const MIX_COLORS = ["oklch(0.65 0.2 250)", "oklch(0.6 0.24 300)", "oklch(0.68 0.22 15)"];
-
-/* ---------- Small motion helpers ---------- */
+/* ---------- Motion helpers ---------- */
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
@@ -90,8 +72,8 @@ function Index() {
       <SocialFocus />
       <Funnel />
       <Portfolio />
+      <Team />
       <Pricing />
-      <Testimonials />
       <FinalCta />
       <Footer />
       <FloatWpp />
@@ -111,8 +93,9 @@ function Nav() {
           {[
             ["Dashboard", "#dashboard"],
             ["Especialidade", "#redes"],
-            ["Metodologia", "#metodo"],
+            ["Solução", "#solucao"],
             ["Portfólio", "#portfolio"],
+            ["Equipe", "#equipe"],
             ["Planos", "#planos"],
           ].map(([label, href]) => (
             <a
@@ -128,7 +111,7 @@ function Nav() {
           href="#contato"
           className="hidden rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5 sm:inline-flex"
         >
-          Diagnóstico
+          Falar com a equipe
         </a>
       </div>
     </nav>
@@ -174,7 +157,7 @@ function Hero() {
             className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-muted-foreground"
           >
             <Sparkles className="h-3.5 w-3.5 text-brand-purple" />
-            Inovação · Estratégia · Tecnologia
+            Criativos · Anúncios · Landing Pages
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -182,7 +165,7 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-[clamp(2.75rem,6vw,4.75rem)] font-bold leading-[1.05]"
           >
-            FMDESIGN: <span className="text-gradient">Studio</span> de Posicionamento e Mídia
+            FMDESIGN: agência de <span className="text-gradient">criativos</span> e funil simples
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -190,8 +173,8 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.25 }}
             className="mt-6 max-w-xl text-lg text-muted-foreground"
           >
-            Transformamos presença digital em máquina de vendas previsível. Criamos ecossistemas
-            imersivos que atraem, educam e convertem o seu cliente ideal.
+            Criativos personalizados, gestão de anúncios e landing pages de conversão. Um funil
+            direto — do primeiro clique ao contato no WhatsApp.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -200,10 +183,10 @@ function Hero() {
             className="mt-8 flex flex-wrap gap-4"
           >
             <a
-              href="#metodo"
+              href="#solucao"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-brand px-7 py-4 text-sm font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5"
             >
-              Descubra o método
+              Ver a solução
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
@@ -213,27 +196,12 @@ function Hero() {
               className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-7 py-4 text-sm font-semibold text-foreground backdrop-blur transition-colors hover:bg-surface-light"
             >
               <MessageCircle className="h-4 w-4" />
-              Agendar conversa
+              Falar no WhatsApp
             </a>
           </motion.div>
-
-          <div className="mt-12 grid max-w-lg grid-cols-3 gap-6">
-            {[
-              ["+180%", "ROAS médio"],
-              ["48h", "Setup do funil"],
-              ["24/7", "Otimização"],
-            ].map(([n, l]) => (
-              <div key={l}>
-                <div className="text-2xl font-bold text-gradient md:text-3xl">{n}</div>
-                <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
-                  {l}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* Floating hero card */}
+        {/* Hero image — minimalista */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -241,77 +209,16 @@ function Hero() {
           className="relative"
         >
           <div className="animate-float-slow">
-            <div className="relative rounded-3xl border border-border bg-surface/70 p-6 shadow-elegant backdrop-blur-xl">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                    Painel ao vivo
-                  </div>
-                  <div className="mt-1 text-lg font-semibold">Crescimento orgânico</div>
-                </div>
-                <div className="rounded-full bg-brand-green/15 px-3 py-1 text-xs font-semibold text-brand-green">
-                  +42%
-                </div>
-              </div>
-              <div className="mt-6 h-40">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={growthData}>
-                    <defs>
-                      <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="oklch(0.6 0.24 300)" stopOpacity={0.6} />
-                        <stop offset="100%" stopColor="oklch(0.6 0.24 300)" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      type="monotone"
-                      dataKey="alcance"
-                      stroke="oklch(0.65 0.22 275)"
-                      strokeWidth={2.5}
-                      fill="url(#hg)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                {[
-                  ["Leads", "312", TrendingUp],
-                  ["CPL", "R$ 4,80", Zap],
-                ].map(([l, v, Icon]) => {
-                  const I = Icon as typeof TrendingUp;
-                  return (
-                    <div
-                      key={l as string}
-                      className="rounded-2xl border border-border bg-background/60 p-3"
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">{l as string}</span>
-                        <I className="h-3.5 w-3.5 text-brand-green" />
-                      </div>
-                      <div className="mt-1 text-lg font-bold">{v as string}</div>
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="relative overflow-hidden rounded-3xl border border-border bg-surface/70 shadow-elegant backdrop-blur-xl">
+              <img
+                src={marketing1.url}
+                alt="Crescimento em marketing digital"
+                width={1200}
+                height={900}
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
-
-          {/* Floating chip */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.9 }}
-            className="absolute -left-6 top-8 hidden rounded-2xl border border-border bg-surface/80 p-3 shadow-elegant backdrop-blur md:block"
-          >
-            <div className="flex items-center gap-2">
-              <div className="rounded-full bg-brand-green/15 p-2">
-                <CheckCircle2 className="h-4 w-4 text-brand-green" />
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">Novo lead</div>
-                <div className="text-sm font-semibold">Fechou WhatsApp</div>
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
       </motion.div>
     </section>
@@ -334,7 +241,7 @@ function ClientsBar() {
     <section className="border-y border-border bg-surface/50 py-10">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <p className="mb-6 text-center text-xs uppercase tracking-[0.25em] text-muted-foreground">
-          Parceiros estratégicos que confiam em nosso Studio
+          Marcas que já rodam campanhas conosco
         </p>
         <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex w-max animate-marquee gap-16 pr-16">
@@ -353,220 +260,146 @@ function ClientsBar() {
   );
 }
 
-/* ---------------- Dashboard ---------------- */
+/* ---------------- Dashboard (único, informativo) ---------------- */
 function Dashboard() {
   return (
     <section id="dashboard" className="relative py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <motion.div {...fadeUp} className="mx-auto mb-16 max-w-2xl text-center">
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
             <BarChart3 className="h-3.5 w-3.5 text-brand-blue" />
-            Dashboard de performance
+            Panorama de performance
           </div>
           <h2 className="text-4xl font-bold md:text-5xl">
-            Estratégia com <span className="text-gradient">dados reais</span>
+            Redes, usuários e <span className="text-gradient">Google</span> em uma leitura só
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Acompanhe em tempo real o que os clientes FMDESIGN colhem quando estratégia,
-            criativo e tecnologia rodam integrados.
+            Uma visão simples de como as três fontes de tráfego evoluem ao longo dos meses
+            durante uma campanha bem estruturada.
           </p>
         </motion.div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <motion.div
-            {...fadeUp}
-            className="lg:col-span-2 rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur"
-          >
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                  Últimos 7 meses
-                </div>
-                <h3 className="text-xl font-semibold">Alcance x Leads qualificados</h3>
-              </div>
-              <div className="hidden gap-4 md:flex">
-                <Legend color="oklch(0.65 0.22 275)" label="Alcance (mil)" />
-                <Legend color="oklch(0.75 0.2 155)" label="Leads (x10)" />
-              </div>
-            </div>
-            <div className="h-72">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={growthData}>
-                  <defs>
-                    <linearGradient id="a1" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="oklch(0.65 0.22 275)" stopOpacity={0.5} />
-                      <stop offset="100%" stopColor="oklch(0.65 0.22 275)" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="a2" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="oklch(0.75 0.2 155)" stopOpacity={0.5} />
-                      <stop offset="100%" stopColor="oklch(0.75 0.2 155)" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid stroke="oklch(1 0 0 / 0.06)" vertical={false} />
-                  <XAxis dataKey="m" stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip
-                    contentStyle={{
-                      background: "oklch(0.18 0.012 260)",
-                      border: "1px solid oklch(1 0 0 / 0.1)",
-                      borderRadius: 12,
-                      color: "white",
-                    }}
-                  />
-                  <Area type="monotone" dataKey="alcance" stroke="oklch(0.65 0.22 275)" strokeWidth={2.5} fill="url(#a1)" />
-                  <Area type="monotone" dataKey="leads" stroke="oklch(0.75 0.2 155)" strokeWidth={2.5} fill="url(#a2)" />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
+        <motion.div
+          {...fadeUp}
+          className="rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur md:p-8"
+        >
+          <div className="mb-6 grid gap-4 sm:grid-cols-3">
+            <MetricCard
+              icon={Users}
+              label="Redes sociais"
+              value="+44k"
+              hint="alcance mensal"
+              color="text-brand-purple"
+            />
+            <MetricCard
+              icon={TrendingUp}
+              label="Usuários no site"
+              value="+32k"
+              hint="visitas únicas"
+              color="text-brand-blue"
+            />
+            <MetricCard
+              icon={Compass}
+              label="Google"
+              value="+28k"
+              hint="impressões orgânicas"
+              color="text-brand-green"
+            />
+          </div>
 
-          <motion.div
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.1 }}
-            className="rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur"
-          >
-            <div className="text-xs uppercase tracking-widest text-muted-foreground">Mix</div>
-            <h3 className="text-xl font-semibold">Origem dos leads</h3>
-            <div className="mt-4 h-56">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={mixData}
-                    dataKey="value"
-                    innerRadius={55}
-                    outerRadius={85}
-                    paddingAngle={4}
-                    stroke="none"
-                  >
-                    {mixData.map((_, i) => (
-                      <Cell key={i} fill={MIX_COLORS[i]} />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      background: "oklch(0.18 0.012 260)",
-                      border: "1px solid oklch(1 0 0 / 0.1)",
-                      borderRadius: 12,
-                      color: "white",
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="mt-3 space-y-2">
-              {mixData.map((m, i) => (
-                <div key={m.name} className="flex items-center justify-between text-sm">
-                  <span className="flex items-center gap-2 text-muted-foreground">
-                    <span
-                      className="h-2.5 w-2.5 rounded-full"
-                      style={{ background: MIX_COLORS[i] }}
-                    />
-                    {m.name}
-                  </span>
-                  <span className="font-semibold">{m.value}%</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            {...fadeUp}
-            className="rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur lg:col-span-3"
-          >
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                  Taxa de conversão por canal
-                </div>
-                <h3 className="text-xl font-semibold">Onde o dinheiro rende</h3>
-              </div>
-              <div className="hidden items-center gap-2 rounded-full bg-brand-green/15 px-3 py-1 text-xs font-semibold text-brand-green md:flex">
-                <TrendingUp className="h-3.5 w-3.5" />
-                Média +47%
-              </div>
-            </div>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={channelData}>
-                  <defs>
-                    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="oklch(0.65 0.22 275)" />
-                      <stop offset="100%" stopColor="oklch(0.6 0.24 300)" />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid stroke="oklch(1 0 0 / 0.06)" vertical={false} />
-                  <XAxis dataKey="canal" stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip
-                    cursor={{ fill: "oklch(1 0 0 / 0.04)" }}
-                    contentStyle={{
-                      background: "oklch(0.18 0.012 260)",
-                      border: "1px solid oklch(1 0 0 / 0.1)",
-                      borderRadius: 12,
-                      color: "white",
-                    }}
-                  />
-                  <Bar dataKey="conv" fill="url(#bar)" radius={[10, 10, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
-        </div>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={performanceData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                <CartesianGrid stroke="oklch(1 0 0 / 0.06)" vertical={false} />
+                <XAxis dataKey="m" stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{
+                    background: "oklch(0.18 0.012 260)",
+                    border: "1px solid oklch(1 0 0 / 0.1)",
+                    borderRadius: 12,
+                    color: "white",
+                  }}
+                />
+                <RLegend wrapperStyle={{ fontSize: 12, color: "oklch(0.68 0.02 260)" }} />
+                <Line
+                  type="monotone"
+                  name="Redes sociais"
+                  dataKey="redes"
+                  stroke="oklch(0.6 0.24 300)"
+                  strokeWidth={2.5}
+                  dot={false}
+                />
+                <Line
+                  type="monotone"
+                  name="Usuários"
+                  dataKey="usuarios"
+                  stroke="oklch(0.65 0.2 250)"
+                  strokeWidth={2.5}
+                  dot={false}
+                />
+                <Line
+                  type="monotone"
+                  name="Google"
+                  dataKey="google"
+                  stroke="oklch(0.75 0.2 155)"
+                  strokeWidth={2.5}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function Legend({ color, label }: { color: string; label: string }) {
+function MetricCard({
+  icon: Icon,
+  label,
+  value,
+  hint,
+  color,
+}: {
+  icon: typeof Users;
+  label: string;
+  value: string;
+  hint: string;
+  color: string;
+}) {
   return (
-    <span className="flex items-center gap-2 text-xs text-muted-foreground">
-      <span className="h-2.5 w-2.5 rounded-full" style={{ background: color }} />
-      {label}
-    </span>
+    <div className="rounded-2xl border border-border bg-background/60 p-5">
+      <div className="flex items-center justify-between">
+        <span className="text-xs uppercase tracking-widest text-muted-foreground">{label}</span>
+        <Icon className={`h-4 w-4 ${color}`} />
+      </div>
+      <div className="mt-3 text-3xl font-bold">{value}</div>
+      <div className="mt-1 text-xs text-muted-foreground">{hint}</div>
+    </div>
   );
 }
 
 /* ---------------- Social Focus ---------------- */
 function SocialFocus() {
   const items = [
-    { icon: Video, title: "Edição de vídeos magnéticos", desc: "Reels e Shorts pensados para retenção e crescimento qualificado." },
-    { icon: Layers, title: "Design de alto padrão", desc: "Artes e pacotes que educam e quebram objeções antes do contato." },
-    { icon: LineChartIcon, title: "Google Meu Negócio", desc: "Otimização completa para dominar buscas locais na sua região." },
+    { icon: Film, title: "Criativos que param o scroll", desc: "Reels, Shorts e estáticos pensados para retenção e cliques." },
+    { icon: Palette, title: "Design consistente", desc: "Identidade visual aplicada em todos os pontos de contato." },
+    { icon: Compass, title: "Google Meu Negócio", desc: "Perfil otimizado para aparecer nas buscas locais da sua região." },
   ];
   return (
     <section id="redes" className="relative py-28">
       <div className="mx-auto grid max-w-7xl gap-16 px-5 md:px-8 lg:grid-cols-2 lg:items-center">
         <motion.div {...fadeUp} className="relative">
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-surface shadow-elegant">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/20 via-transparent to-brand-purple/30" />
-            <div className="relative grid grid-cols-2 gap-3 p-6">
-              {[
-                { label: "Engajamento", value: "+312%", color: "bg-brand-purple/15 text-brand-purple" },
-                { label: "Seguidores", value: "+18.4k", color: "bg-brand-blue/15 text-brand-blue" },
-                { label: "Salvos", value: "1.2k", color: "bg-brand-green/15 text-brand-green" },
-                { label: "Cliques bio", value: "4.8k", color: "bg-brand-pink/15 text-brand-pink" },
-              ].map((s) => (
-                <div key={s.label} className="rounded-2xl border border-border bg-background/70 p-5 backdrop-blur">
-                  <div className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${s.color}`}>
-                    {s.label}
-                  </div>
-                  <div className="mt-3 text-3xl font-bold">{s.value}</div>
-                  <div className="mt-3 h-16">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={growthData}>
-                        <Area
-                          type="monotone"
-                          dataKey="alcance"
-                          stroke="oklch(0.65 0.22 275)"
-                          strokeWidth={2}
-                          fill="oklch(0.65 0.22 275 / 0.15)"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="relative overflow-hidden rounded-3xl border border-border shadow-elegant">
+            <img
+              src={marketing2.url}
+              alt="Marketing e posicionamento de mídia"
+              width={1200}
+              height={900}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
           </div>
           <div className="absolute -bottom-8 -right-6 h-40 w-40 rounded-full bg-gradient-brand opacity-40 blur-3xl" />
         </motion.div>
@@ -577,11 +410,11 @@ function SocialFocus() {
             Especialidade
           </div>
           <h2 className="text-4xl font-bold md:text-5xl">
-            Dominando a atenção e <span className="text-gradient">gerando desejo</span>
+            Posicionamento com <span className="text-gradient">clareza</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            O marketing para redes sociais é o primeiro pilar do posicionamento. Criamos linhas
-            editoriais estratégicas que transformam reconhecimento em autoridade.
+            Trabalhamos redes sociais, anúncios e presença no Google como um conjunto — não como
+            peças soltas. O objetivo é sempre gerar contato qualificado.
           </p>
           <ul className="mt-8 space-y-5">
             {items.map(({ icon: Icon, title, desc }) => (
@@ -602,32 +435,31 @@ function SocialFocus() {
   );
 }
 
-/* ---------------- Funnel ---------------- */
+/* ---------------- Funnel (Solução) ---------------- */
 function Funnel() {
   const steps = [
-    { icon: Magnet, color: "text-brand-blue", tag: "Topo", title: "Atração qualificada", desc: "Conteúdo orgânico + tráfego pago com anúncios de descoberta e Reels estratégicos." },
-    { icon: GraduationCap, color: "text-brand-pink", tag: "Meio", title: "Autoridade & educação", desc: "Carrosséis didáticos e Stories de bastidor para quebrar objeções." },
-    { icon: Target, color: "text-brand-purple", tag: "Fundo", title: "Oferta & remarketing", desc: "Anúncios de conversão com prova social direcionando o lead ao ambiente de venda." },
-    { icon: Handshake, color: "text-brand-green", tag: "Fechamento", title: "Infraestrutura comercial", desc: "Landing Page + WhatsApp entregando lead quente ao seu comercial." },
+    { icon: Sparkles, tag: "01", title: "Criativo", desc: "Peças personalizadas para cada oferta, formato e público." },
+    { icon: Target, tag: "02", title: "Anúncio", desc: "Campanhas em Meta e Google configuradas e otimizadas por semana." },
+    { icon: Layout, tag: "03", title: "Landing page", desc: "Página de conversão com foco no clique para o WhatsApp." },
+    { icon: MessageCircle, tag: "04", title: "Contato", desc: "Lead chega direto no seu comercial, pronto para conversar." },
   ];
   return (
-    <section id="metodo" className="relative py-28">
+    <section id="solucao" className="relative py-28">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
             <Compass className="h-3.5 w-3.5 text-brand-blue" />
-            Metodologia
+            Solução
           </div>
           <h2 className="text-4xl font-bold md:text-5xl">
-            O <span className="text-gradient">funil</span> de conversão aprimorado
+            Um <span className="text-gradient">funil simples</span> e direto
           </h2>
           <p className="mt-4 text-muted-foreground">
-            O fluxo exato para transformar desconhecidos em clientes de alto valor, unindo
-            estratégia e tecnologia.
+            Quatro etapas, sem promessas mágicas. Só o trabalho bem feito, em ciclo contínuo.
           </p>
         </motion.div>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -635,18 +467,18 @@ function Funnel() {
                 key={s.title}
                 {...fadeUp}
                 transition={{ ...fadeUp.transition, delay: i * 0.08 }}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-8 shadow-elegant backdrop-blur transition-transform hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur transition-transform hover:-translate-y-1"
               >
                 <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-brand opacity-0 blur-3xl transition-opacity group-hover:opacity-30" />
                 <div className="flex items-center justify-between">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-background ${s.color}`}>
-                    <Icon className="h-6 w-6" />
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-brand-purple">
+                    <Icon className="h-5 w-5" />
                   </div>
                   <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    Fase {i + 1} · {s.tag}
+                    {s.tag}
                   </span>
                 </div>
-                <h3 className="mt-6 text-xl font-semibold">{s.title}</h3>
+                <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
               </motion.div>
             );
@@ -657,44 +489,123 @@ function Funnel() {
   );
 }
 
-/* ---------------- Portfolio ---------------- */
+/* ---------------- Portfolio (menor, com texto ao lado) ---------------- */
 function Portfolio() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 60, reduce ? 0 : -60]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.98]);
-
   return (
-    <section id="portfolio" ref={ref} className="relative py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
+    <section id="portfolio" className="relative py-28">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+        <motion.div {...fadeUp}>
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
-            <Rocket className="h-3.5 w-3.5 text-brand-purple" />
+            <Palette className="h-3.5 w-3.5 text-brand-purple" />
             Portfólio
           </div>
           <h2 className="text-4xl font-bold md:text-5xl">
-            Projetos com <span className="text-gradient">estética premium</span>
+            Criativos <span className="text-gradient">personalizados</span> e landing pages de conversão
           </h2>
-          <p className="mt-4 text-muted-foreground">
-            Criativos, identidades visuais e landing pages voltados para alta taxa de conversão.
+          <p className="mt-5 text-muted-foreground">
+            Cada peça é feita sob medida para a oferta e o público do cliente — sem template
+            genérico. As landing pages seguem a mesma lógica: layout limpo, informação essencial e
+            um único caminho para o contato.
           </p>
+          <ul className="mt-6 space-y-3 text-sm">
+            {[
+              "Criativos estáticos e em vídeo, prontos para rodar em anúncios.",
+              "Identidade visual aplicada em toda a comunicação.",
+              "Landing pages responsivas com foco em conversão.",
+            ].map((t) => (
+              <li key={t} className="flex gap-3">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-green" />
+                <span className="text-muted-foreground">{t}</span>
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
-        <motion.div style={{ y, scale }} className="relative">
-          <div className="absolute -inset-10 bg-gradient-brand opacity-20 blur-3xl" />
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-4 shadow-elegant backdrop-blur">
+        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative">
+          <div className="absolute -inset-6 bg-gradient-brand opacity-20 blur-3xl" />
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-3 shadow-elegant backdrop-blur">
             <img
               src={portfolioImg.url}
-              alt="Portfólio FMDESIGN — criativos, edição e landing pages"
+              alt="Portfólio FMDESIGN — criativos e landing pages"
               className="w-full rounded-2xl"
               loading="lazy"
             />
-            <div className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full border border-border bg-background/70 px-6 py-2 text-sm font-medium backdrop-blur">
-              Estratégia + Design + Tecnologia
-            </div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Team ---------------- */
+function Team() {
+  const team = [
+    {
+      name: "Fabio Metka",
+      role: "Designer gráfico & estrategista",
+      desc: "Direção criativa, identidade visual e estratégia por trás de cada campanha.",
+      initials: "FM",
+      color: "from-brand-purple to-brand-blue",
+    },
+    {
+      name: "Victor Fernando",
+      role: "Editor de vídeos",
+      desc: "Reels, Shorts e VSLs com edição pensada para retenção e clique.",
+      initials: "VF",
+      color: "from-brand-blue to-brand-green",
+    },
+    {
+      name: "Tiago V.",
+      role: "Gestor de anúncios",
+      desc: "Meta Ads e Google Ads: estruturação, otimização semanal e leitura de dados.",
+      initials: "TV",
+      color: "from-brand-pink to-brand-purple",
+    },
+    {
+      name: "Mariana",
+      role: "Social media",
+      desc: "Planejamento de conteúdo, calendário editorial e relacionamento nas redes.",
+      initials: "MA",
+      color: "from-brand-green to-brand-blue",
+    },
+  ];
+  return (
+    <section id="equipe" className="relative py-28">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
+            <Users className="h-3.5 w-3.5 text-brand-green" />
+            Equipe qualificada
+          </div>
+          <h2 className="text-4xl font-bold md:text-5xl">
+            Quem coloca a <span className="text-gradient">campanha no ar</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Um time pequeno e especializado — cada área com um responsável direto pelo seu projeto.
+          </p>
+        </motion.div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {team.map((p, i) => (
+            <motion.div
+              key={p.name}
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: i * 0.08 }}
+              className="group relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur transition-transform hover:-translate-y-1"
+            >
+              <div
+                className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${p.color} font-display text-lg font-bold text-white shadow-glow`}
+              >
+                {p.initials}
+              </div>
+              <h3 className="mt-5 text-lg font-semibold">{p.name}</h3>
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                {p.role}
+              </div>
+              <p className="mt-3 text-sm text-muted-foreground">{p.desc}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -704,38 +615,38 @@ function Portfolio() {
 function Pricing() {
   const plans = [
     {
-      name: "Essencial Digital",
-      desc: "Vitrine profissional e casa organizada nas redes sociais.",
+      name: "Essencial",
+      desc: "Presença profissional nas redes e no Google.",
       features: [
-        "Gestão de redes (Instagram/FB)",
-        "12 artes/mês + linha editorial",
-        "Otimização de perfil e destaques",
-        "Relatório mensal básico",
+        "Gestão de redes sociais",
+        "12 criativos/mês",
+        "Otimização de perfil",
+        "Google Meu Negócio",
       ],
       cta: "Solicitar orçamento",
       featured: false,
     },
     {
-      name: "Consultoria & Funil Completo",
-      desc: "Design premium + landing pages + tráfego pago integrados.",
+      name: "Funil de conversão",
+      desc: "Criativos + anúncios + landing page em ciclo contínuo.",
       features: [
-        "Gestão de redes + design completo",
+        "Criativos personalizados (estáticos e vídeo)",
         "Landing page de conversão",
-        "Tráfego pago (Meta/Google Ads)",
-        "Google Meu Negócio otimizado",
-        "Edição de vídeos dinâmicos",
+        "Gestão de anúncios (Meta e Google)",
+        "Relatório mensal simplificado",
+        "Ajustes semanais de campanha",
       ],
-      cta: "Quero acelerar minhas vendas",
+      cta: "Quero rodar campanha",
       featured: true,
     },
     {
-      name: "Projetos & Tecnologia",
-      desc: "Soluções pontuais de publicidade e design profissional.",
+      name: "Projetos avulsos",
+      desc: "Entregas pontuais de design e landing page.",
       features: [
-        "Logomarca profissional",
-        "Identidade visual completa",
-        "Landing page (venda única)",
-        "Pacote de artes avulsas",
+        "Identidade visual",
+        "Landing page (entrega única)",
+        "Pacote de criativos",
+        "Edição de vídeos",
       ],
       cta: "Consultar valores",
       featured: false,
@@ -751,10 +662,10 @@ function Pricing() {
             Planos
           </div>
           <h2 className="text-4xl font-bold md:text-5xl">
-            Soluções <span className="text-gradient">fechadas</span> e transparentes
+            Escopos <span className="text-gradient">claros</span> e transparentes
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Escolha o nível de aceleração ideal para o momento da sua empresa.
+            Escolha o formato que faz sentido para o momento do seu negócio.
           </p>
         </motion.div>
 
@@ -772,7 +683,7 @@ function Pricing() {
             >
               {p.featured && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-brand px-4 py-1 text-xs font-semibold uppercase tracking-widest text-white shadow-glow">
-                  Posicionamento Elite
+                  Mais escolhido
                 </span>
               )}
               <h3 className="text-2xl font-bold">{p.name}</h3>
@@ -806,85 +717,28 @@ function Pricing() {
   );
 }
 
-/* ---------------- Testimonials ---------------- */
-function Testimonials() {
-  const items = [
-    {
-      quote:
-        "Nossa captação mudou da água pro vinho. A landing page e os anúncios trouxeram leads que realmente queriam fechar.",
-      name: "Gabriel M.",
-      role: "GM Engenharia Elétrica",
-      img: "https://i.pravatar.cc/150?img=11",
-    },
-    {
-      quote:
-        "Organizaram nossa linha editorial e a nova identidade deixou a marca com aspecto premium. Recomendo demais.",
-      name: "Marina S.",
-      role: "Clínica OdontoPrime",
-      img: "https://i.pravatar.cc/150?img=5",
-    },
-    {
-      quote:
-        "Funil bem estruturado, criativos que convertem e um time que entende de negócio, não só de arte.",
-      name: "Rafael T.",
-      role: "TechSolutions BR",
-      img: "https://i.pravatar.cc/150?img=32",
-    },
-  ];
-  return (
-    <section id="depoimentos" className="relative py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
-          <h2 className="text-4xl font-bold md:text-5xl">
-            O que <span className="text-gradient">nossos clientes</span> dizem
-          </h2>
-          <p className="mt-4 text-muted-foreground">
-            A prova real de que o método FMDESIGN gera resultado sólido e previsível.
-          </p>
-        </motion.div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {items.map((t, i) => (
-            <motion.div
-              key={t.name}
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: i * 0.08 }}
-              className="rounded-3xl border border-border bg-surface/60 p-8 shadow-elegant backdrop-blur"
-            >
-              <div className="flex gap-1 text-brand-pink">
-                {Array.from({ length: 5 }).map((_, k) => (
-                  <Star key={k} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-              <p className="mt-4 italic text-foreground/90">"{t.quote}"</p>
-              <div className="mt-6 flex items-center gap-3">
-                <img src={t.img} alt={t.name} className="h-11 w-11 rounded-full object-cover" loading="lazy" />
-                <div>
-                  <div className="font-semibold">{t.name}</div>
-                  <div className="text-xs text-muted-foreground">{t.role}</div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ---------------- Final CTA ---------------- */
 function FinalCta() {
   return (
     <section id="contato" className="relative overflow-hidden py-28">
       <div className="absolute inset-0 bg-mesh" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background" />
+      <img
+        src={marketing3.url}
+        alt=""
+        aria-hidden
+        width={1200}
+        height={900}
+        loading="lazy"
+        className="pointer-events-none absolute -left-20 top-10 hidden w-[380px] opacity-40 md:block"
+      />
       <div className="relative mx-auto max-w-3xl px-5 text-center md:px-8">
         <motion.h2 {...fadeUp} className="text-4xl font-bold leading-tight md:text-6xl">
-          Pronto para <span className="text-gradient">dominar seu mercado?</span>
+          Vamos <span className="text-gradient">conversar</span> sobre a sua campanha?
         </motion.h2>
         <motion.p {...fadeUp} className="mt-6 text-lg text-muted-foreground">
-          Chega de perder clientes para concorrentes com posicionamento inferior. Vamos estruturar
-          juntos a sua máquina de vendas digital.
+          Conte o que você vende e para quem — a equipe FMDESIGN monta uma proposta de criativos,
+          anúncios e landing page adequada ao seu momento.
         </motion.p>
         <motion.div {...fadeUp} className="mt-10">
           <a
@@ -894,7 +748,7 @@ function FinalCta() {
             className="inline-flex items-center gap-3 rounded-full bg-brand-green px-8 py-5 text-base font-semibold text-background shadow-glow transition-transform hover:-translate-y-0.5"
           >
             <MessageCircle className="h-5 w-5" />
-            Iniciar diagnóstico no WhatsApp
+            Falar no WhatsApp
           </a>
         </motion.div>
       </div>
@@ -909,12 +763,13 @@ function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-5 text-center md:px-8">
         <img src={logoDark.url} alt="FMDESIGN Studio" className="h-14 w-auto invert" />
         <p className="text-sm text-muted-foreground">
-          © 2026 FMDESIGN · Studio de Posicionamento e Mídia. Todos os direitos reservados.
+          © 2026 FMDESIGN · Criativos, anúncios e landing pages. Todos os direitos reservados.
         </p>
-        <div className="flex gap-6 text-sm text-muted-foreground">
+        <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
           <a href="#redes" className="hover:text-foreground">Especialidade</a>
-          <a href="#metodo" className="hover:text-foreground">Método</a>
+          <a href="#solucao" className="hover:text-foreground">Solução</a>
           <a href="#portfolio" className="hover:text-foreground">Portfólio</a>
+          <a href="#equipe" className="hover:text-foreground">Equipe</a>
           <a href="#planos" className="hover:text-foreground">Planos</a>
         </div>
       </div>
@@ -936,3 +791,6 @@ function FloatWpp() {
     </a>
   );
 }
+
+// Silence unused import warning when AreaChart/Area not used in this variant
+export const _unused = { AreaChart, Area };
