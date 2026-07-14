@@ -313,7 +313,7 @@ function Hero() {
             </div>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
