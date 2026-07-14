@@ -465,7 +465,7 @@ function AudienceDashboard() {
             <div className="text-xs uppercase tracking-widest text-muted-foreground">
               Comportamento — Instagram
             </div>
-            <h3 className="mt-1 text-xl font-semibold">90% seguem contas comerciais</h3>
+            <h3 className="mt-1 text-xl font-semibold">70% usam o app para decidir compras</h3>
             <ul className="mt-6 space-y-4">
               {behaviorData.map((b, i) => (
                 <li key={b.name}>
