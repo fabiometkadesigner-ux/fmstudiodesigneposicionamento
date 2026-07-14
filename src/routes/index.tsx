@@ -217,7 +217,7 @@ function Hero() {
             <div className="relative overflow-hidden rounded-3xl border border-border bg-surface/70 shadow-elegant backdrop-blur-xl">
               <img
                 src={marketing1.url}
-                alt="Crescimento em marketing digital"
+                alt="Criativos, anúncios e métricas em redes sociais"
                 width={1200}
                 height={900}
                 className="h-full w-full object-cover"
@@ -269,7 +269,7 @@ function SocialFocus() {
           <div className="relative overflow-hidden rounded-3xl border border-border shadow-elegant">
             <img
               src={marketing2.url}
-              alt="Marketing e posicionamento de mídia"
+              alt="Equipe criativa trabalhando em campanhas de redes sociais e anúncios"
               width={1200}
               height={900}
               loading="lazy"
