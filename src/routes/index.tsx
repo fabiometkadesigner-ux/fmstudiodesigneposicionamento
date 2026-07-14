@@ -40,7 +40,7 @@ import marketing1 from "@/assets/marketing-1.jpg.asset.json";
 import marketing2 from "@/assets/marketing-2.jpg.asset.json";
 import marketing3 from "@/assets/marketing-3.jpg.asset.json";
 import portifolioimagem from "@/assets/portifolioimagem.png.asset.json";
-import devicesMockup from "@/assets/devices-mockup.jpg.asset.json";
+import devicesMockup from "@/assets/devices-mockup.png.asset.json";
 import {
   ageDistribution,
   behaviorData,
@@ -782,25 +782,28 @@ function Team() {
         </motion.div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {team.map((p, i) => (
-            <motion.div
-              key={p.name}
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: i * 0.08 }}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur transition-transform hover:-translate-y-1"
-            >
-              <div
-                className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${p.color} font-display text-lg font-bold text-white shadow-glow`}
+          {team.map((p, i) => {
+            const Icon = { Palette, Film, Target, MessageCircle, Search, BarChart3 }[p.icon];
+            return (
+              <motion.div
+                key={p.name}
+                {...fadeUp}
+                transition={{ ...fadeUp.transition, delay: i * 0.08 }}
+                className="group relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur transition-transform hover:-translate-y-1"
               >
-                {p.initials}
-              </div>
-              <h3 className="mt-5 text-lg font-semibold">{p.name}</h3>
-              <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                {p.role}
-              </div>
-              <p className="mt-3 text-sm text-muted-foreground">{p.desc}</p>
-            </motion.div>
-          ))}
+                <div
+                  className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${p.color} shadow-glow`}
+                >
+                  <Icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">{p.name}</h3>
+                <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                  {p.role}
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground">{p.desc}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
