@@ -77,25 +77,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FMDESIGN — Studio de Posicionamento e Mídia" },
+      { title: "fmstudio — design e  Posicionamento" },
       {
         name: "description",
         content:
-          "FMDESIGN é o studio que transforma presença digital em máquina de vendas: gestão de redes sociais, tráfego pago, landing pages e design de alto padrão.",
+          "FMDESIGN é o studio que transforma presença digital com gestão de redes sociais, tráfego pago, landing pages e design de alto padrão.",
       },
       { name: "author", content: "FMDESIGN Studio" },
-      { property: "og:title", content: "FMDESIGN — Studio de Posicionamento e Mídia" },
+      { property: "og:title", content: "fmstudio — design e  Posicionamento" },
       {
         property: "og:description",
         content:
-          "Ecossistemas digitais que atraem, educam e convertem. Design, tráfego e estratégia em um único studio.",
+          "FMDESIGN é o studio que transforma presença digital com gestão de redes sociais, tráfego pago, landing pages e design de alto padrão.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "fmstudio — design e  Posicionamento" },
+      { name: "twitter:description", content: "FMDESIGN é o studio que transforma presença digital com gestão de redes sociais, tráfego pago, landing pages e design de alto padrão." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d860b951-ea7e-418d-ae4e-f474e5f1198b" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d860b951-ea7e-418d-ae4e-f474e5f1198b" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
