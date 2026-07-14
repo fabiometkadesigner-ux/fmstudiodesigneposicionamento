@@ -47,8 +47,6 @@ import {
   clients,
   engagementTrend,
   formatData,
-  genderData,
-  googleData,
   plans,
   team,
 } from "@/content/site";
