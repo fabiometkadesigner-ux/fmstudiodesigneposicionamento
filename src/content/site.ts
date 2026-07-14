@@ -151,11 +151,32 @@ export const behaviorData = [
 ];
 
 export const engagementTrend = [
-  { d: "01/06", carrossel: 180, foto: 210, video: 140 },
-  { d: "02/06", carrossel: 230, foto: 260, video: 190 },
-  { d: "03/06", carrossel: 410, foto: 580, video: 260 },
-  { d: "04/06", carrossel: 190, foto: 220, video: 150 },
-  { d: "05/06", carrossel: 300, foto: 340, video: 230 },
-  { d: "06/06", carrossel: 350, foto: 420, video: 290 },
-  { d: "07/06", carrossel: 480, foto: 460, video: 400 },
+  { d: "Jan", carrossel: 3.1, foto: 2.4, video: 4.2 },
+  { d: "Fev", carrossel: 3.4, foto: 2.5, video: 4.6 },
+  { d: "Mar", carrossel: 3.6, foto: 2.6, video: 5.1 },
+  { d: "Abr", carrossel: 3.8, foto: 2.7, video: 5.4 },
+  { d: "Mai", carrossel: 4.0, foto: 2.6, video: 5.8 },
+  { d: "Jun", carrossel: 4.3, foto: 2.5, video: 6.2 },
+  { d: "Jul", carrossel: 4.5, foto: 2.4, video: 6.7 },
 ];
+
+// Formatos + Google — panorama 2026
+export const formatData = [
+  { formato: "Reels", eng: 6.7 },
+  { formato: "Carrossel", eng: 4.5 },
+  { formato: "Foto", eng: 2.4 },
+  { formato: "Stories", eng: 1.8 },
+];
+
+export const googleData = [
+  { canal: "Busca", cliques: 68 },
+  { canal: "Maps", cliques: 46 },
+  { canal: "Display", cliques: 22 },
+  { canal: "YouTube", cliques: 34 },
+];
+
+export const genderData = [
+  { name: "Homens", value: 50.6 },
+  { name: "Mulheres", value: 49.4 },
+];
+
