@@ -4,7 +4,7 @@ import { useRef } from "react";
 import {
   ArrowRight,
   BarChart3,
-  Bullseye,
+  Target,
   CheckCircle2,
   ChevronRight,
   Compass,
@@ -607,7 +607,7 @@ function Funnel() {
   const steps = [
     { icon: Magnet, color: "text-brand-blue", tag: "Topo", title: "Atração qualificada", desc: "Conteúdo orgânico + tráfego pago com anúncios de descoberta e Reels estratégicos." },
     { icon: GraduationCap, color: "text-brand-pink", tag: "Meio", title: "Autoridade & educação", desc: "Carrosséis didáticos e Stories de bastidor para quebrar objeções." },
-    { icon: Bullseye, color: "text-brand-purple", tag: "Fundo", title: "Oferta & remarketing", desc: "Anúncios de conversão com prova social direcionando o lead ao ambiente de venda." },
+    { icon: Target, color: "text-brand-purple", tag: "Fundo", title: "Oferta & remarketing", desc: "Anúncios de conversão com prova social direcionando o lead ao ambiente de venda." },
     { icon: Handshake, color: "text-brand-green", tag: "Fechamento", title: "Infraestrutura comercial", desc: "Landing Page + WhatsApp entregando lead quente ao seu comercial." },
   ];
   return (
