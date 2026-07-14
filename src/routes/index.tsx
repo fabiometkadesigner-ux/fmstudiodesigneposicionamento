@@ -45,6 +45,7 @@ import {
   ageDistribution,
   behaviorData,
   clients,
+  dashboardHighlights,
   engagementTrend,
   plans,
   team,
