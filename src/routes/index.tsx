@@ -319,38 +319,45 @@ function AudienceDashboard() {
         <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
             <BarChart3 className="h-3.5 w-3.5 text-brand-blue" />
-            Público na internet
+            Público na internet · 2026
           </div>
           <h2 className="text-4xl font-bold md:text-5xl">
-            Quem está do <span className="text-gradient">outro lado da tela</span>
+            Onde seu público <span className="text-gradient">realmente está</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Um panorama de audiência e comportamento em redes sociais e Google — a base que
-            usamos para desenhar cada campanha.
+            Dados atualizados de Instagram e Google que mostram a escala do comportamento online
+            e orientam cada campanha que criamos.
           </p>
         </motion.div>
 
         {/* Highlight tiles */}
-        <motion.div {...fadeUp} className="mb-8 grid gap-4 sm:grid-cols-3">
-          <Tile
-            icon={Users}
-            label="Usuários ativos"
-            value="3 bilhões"
-            hint="Instagram · mensais (2025/26)"
-            color="text-brand-purple"
-          />
+        <motion.div {...fadeUp} className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Tile
             icon={Instagram}
-            label="Uso diário"
-            value="500 milhões"
-            hint="usuários ativos por dia"
+            label="Instagram"
+            value={dashboardHighlights.instagramUsers}
+            hint={dashboardHighlights.instagramUsersHint}
             color="text-brand-pink"
           />
           <Tile
+            icon={Users}
+            label="Brasil"
+            value={dashboardHighlights.brazilInstagram}
+            hint={dashboardHighlights.brazilInstagramHint}
+            color="text-brand-purple"
+          />
+          <Tile
             icon={Search}
-            label="Buscas locais"
-            value="+46%"
-            hint="Google · perfis 'perto de mim'"
+            label="Google"
+            value={dashboardHighlights.googleSearches}
+            hint={dashboardHighlights.googleSearchesHint}
+            color="text-brand-blue"
+          />
+          <Tile
+            icon={BarChart3}
+            label="Domínio mobile"
+            value={dashboardHighlights.googleMarketShare}
+            hint={dashboardHighlights.googleMarketShareHint}
             color="text-brand-green"
           />
         </motion.div>
