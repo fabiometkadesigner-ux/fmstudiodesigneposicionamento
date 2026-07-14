@@ -79,6 +79,7 @@ function Index() {
       <AudienceDashboard />
       <Funnel />
       <Portfolio />
+      <DevicesShowcase />
       <Team />
       <Pricing />
       <FinalCta />
