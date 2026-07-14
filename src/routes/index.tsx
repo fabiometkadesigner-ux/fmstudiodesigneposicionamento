@@ -371,7 +371,7 @@ function AudienceDashboard() {
             <div className="text-xs uppercase tracking-widest text-muted-foreground">
               Faixa etária no Instagram
             </div>
-            <h3 className="mt-1 text-xl font-semibold">62,3% entre 18 e 34 anos</h3>
+            <h3 className="mt-1 text-xl font-semibold">Maior grupo entre 25 e 34 anos</h3>
             <div className="mt-6 h-56">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={ageDistribution} margin={{ top: 10, right: 10, left: -18, bottom: 0 }}>
