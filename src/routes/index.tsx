@@ -839,6 +839,12 @@ function Pricing() {
               )}
               <h3 className="text-2xl font-bold">{p.name}</h3>
               <p className="mt-2 min-h-[3rem] text-sm text-muted-foreground">{p.desc}</p>
+              <div className="mt-6 flex items-baseline gap-2 border-y border-border py-4">
+                <span className={`text-3xl font-bold ${p.featured ? "text-gradient" : "text-foreground"}`}>
+                  {p.price}
+                </span>
+                <span className="text-xs text-muted-foreground">{p.priceHint}</span>
+              </div>
               <ul className="mt-6 flex-1 space-y-3">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-3 text-sm">
