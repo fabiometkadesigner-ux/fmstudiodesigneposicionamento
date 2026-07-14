@@ -789,6 +789,3 @@ function FloatWpp() {
     </a>
   );
 }
-
-// Silence unused import warning when AreaChart/Area not used in this variant
-export const _unused = { AreaChart, Area };
