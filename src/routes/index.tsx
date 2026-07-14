@@ -18,8 +18,6 @@ import {
   Zap,
 } from "lucide-react";
 import {
-  Area,
-  AreaChart,
   CartesianGrid,
   Legend as RLegend,
   Line,
