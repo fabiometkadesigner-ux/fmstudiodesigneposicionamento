@@ -621,54 +621,137 @@ function Funnel() {
   );
 }
 
-/* ---------------- Portfolio (grid pequeno) ---------------- */
+/* ---------------- Portfolio (imagem de referência + texto) ---------------- */
 function Portfolio() {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 60, reduce ? 0 : -60]);
+  const rot = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : -3, reduce ? 0 : 3]);
+
   return (
-    <section id="portfolio" className="relative py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <motion.div {...fadeUp} className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
-              <Palette className="h-3.5 w-3.5 text-brand-purple" />
-              Portfólio
-            </div>
-            <h2 className="max-w-xl text-4xl font-bold md:text-5xl">
-              Criativos <span className="text-gradient">personalizados</span>
-            </h2>
+    <section id="portfolio" ref={ref} className="relative overflow-hidden py-28">
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120]) }}
+        className="absolute -left-32 top-24 h-[380px] w-[380px] rounded-full bg-brand-pink/20 blur-[130px]"
+      />
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 140]) }}
+        className="absolute -right-32 bottom-10 h-[420px] w-[420px] rounded-full bg-brand-blue/20 blur-[140px]"
+      />
+
+      <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+        <motion.div {...fadeUp}>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
+            <Palette className="h-3.5 w-3.5 text-brand-purple" />
+            Portfólio
           </div>
-          <p className="max-w-md text-sm text-muted-foreground md:text-right">
-            Cada peça feita sob medida para a oferta e o público do cliente — sem template
-            genérico.
+          <h2 className="text-4xl font-bold md:text-5xl">
+            Criativos <span className="text-gradient">personalizados</span> para cada oferta
+          </h2>
+          <p className="mt-5 text-muted-foreground">
+            Cada peça é desenhada sob medida para a marca, o público e a promessa da campanha. Nada
+            de template genérico — trabalhamos formato, cor, tipografia e copy pensando em parar o
+            scroll e gerar clique.
           </p>
+          <ul className="mt-6 space-y-3 text-sm">
+            {[
+              "Criativos estáticos e em vídeo para Meta e Google",
+              "Identidade visual aplicada em cada peça",
+              "Testes A/B semanais de arte e headline",
+              "Adaptação para todos os formatos (feed, reels, stories, ads)",
+            ].map((t) => (
+              <li key={t} className="flex gap-3">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-green" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+          >
+            Ver mais projetos
+            <ArrowRight className="h-4 w-4" />
+          </a>
         </motion.div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {portfolio.map((p, i) => (
-            <motion.figure
-              key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-surface"
-            >
-              <div className="aspect-[4/5] overflow-hidden">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <figcaption className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-background/95 to-transparent p-3 transition-transform duration-500 group-hover:translate-y-0">
-                <div className="text-[10px] uppercase tracking-widest text-brand-purple">
-                  {p.category}
-                </div>
-                <div className="mt-0.5 text-sm font-semibold">{p.title}</div>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </div>
+        <motion.div
+          style={{ y, rotate: rot }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="relative"
+        >
+          <div className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-brand opacity-30 blur-3xl" />
+          <img
+            src={portifolioimagem.url}
+            alt="Portfólio FMDESIGN — criativos personalizados"
+            loading="lazy"
+            className="w-full drop-shadow-[0_30px_60px_oklch(0_0_0/0.6)]"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Devices Showcase (notebook + celular) ---------------- */
+function DevicesShowcase() {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 100, reduce ? 0 : -100]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.92, 1, 1.02]);
+
+  return (
+    <section ref={ref} className="relative overflow-hidden py-28">
+      <div className="absolute inset-0 bg-mesh opacity-60" />
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+        <motion.div style={{ y, scale }} className="relative">
+          <img
+            src={devicesMockup.url}
+            alt="Landing page da FMDESIGN em notebook e celular"
+            width={1400}
+            height={1000}
+            loading="lazy"
+            className="w-full rounded-3xl border border-border shadow-elegant"
+          />
+          <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-brand opacity-30 blur-3xl" />
+        </motion.div>
+
+        <motion.div {...fadeUp}>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
+            <Layout className="h-3.5 w-3.5 text-brand-blue" />
+            Landing page de conversão
+          </div>
+          <h2 className="text-4xl font-bold md:text-5xl">
+            Uma página feita para o <span className="text-gradient">clique certo</span>
+          </h2>
+          <p className="mt-5 text-muted-foreground">
+            Landing page responsiva, otimizada para notebook e celular, com o único objetivo de
+            levar seu visitante direto ao WhatsApp. Estrutura enxuta, copy afiada e design pensado
+            para conversão.
+          </p>
+          <ul className="mt-6 grid gap-3 text-sm sm:grid-cols-2">
+            {[
+              "100% responsiva (mobile-first)",
+              "Carregamento otimizado",
+              "Copy voltada para conversão",
+              "Botão direto para WhatsApp",
+              "SEO técnico configurado",
+              "Rastreio de pixel e conversões",
+            ].map((t) => (
+              <li key={t} className="flex gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-green" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
       </div>
     </section>
   );
