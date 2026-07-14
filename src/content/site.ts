@@ -136,18 +136,18 @@ export const clients: string[] = [
 ];
 
 // ---------- Dados do dashboard: Público na internet ----------
-// Fonte: referência interna FMDESIGN + Mlabs 2025/2026
+// Fontes 2026: DataReportal, Mlabs, Google/Instagram oficiais e electroiq.com
 export const ageDistribution = [
   { faixa: "18–24", pct: 31.7 },
-  { faixa: "25–34", pct: 30.6 },
-  { faixa: "35–44", pct: 16.0 },
-  { faixa: "45+", pct: 21.7 },
+  { faixa: "25–34", pct: 33.2 },
+  { faixa: "35–44", pct: 16.4 },
+  { faixa: "45+", pct: 18.7 },
 ];
 
 export const behaviorData = [
+  { name: "Usam o app para decidir compras", value: 70 },
   { name: "Seguem contas comerciais", value: 90 },
-  { name: "Compram semanalmente", value: 44 },
-  { name: "Não compram semanalmente", value: 56 },
+  { name: "Compram semanalmente online", value: 44 },
 ];
 
 export const engagementTrend = [
@@ -160,7 +160,7 @@ export const engagementTrend = [
   { d: "Jul", carrossel: 4.5, foto: 2.4, video: 6.7 },
 ];
 
-// Formatos + Google — panorama 2026
+// Formatos — panorama 2026
 export const formatData = [
   { formato: "Reels", eng: 6.7 },
   { formato: "Carrossel", eng: 4.5 },
@@ -168,6 +168,7 @@ export const formatData = [
   { formato: "Stories", eng: 1.8 },
 ];
 
+// Google — panorama 2026
 export const googleData = [
   { canal: "Busca", cliques: 68 },
   { canal: "Maps", cliques: 46 },
@@ -179,4 +180,22 @@ export const genderData = [
   { name: "Homens", value: 50.6 },
   { name: "Mulheres", value: 49.4 },
 ];
+
+// Destaques do dashboard
+export const dashboardHighlights = {
+  instagramUsers: "3 bilhões",
+  instagramUsersHint: "usuários ativos mensais no mundo",
+  brazilInstagram: "134 milhões",
+  brazilInstagramHint: "contas ativas no Brasil",
+  dailyTime: "73 min",
+  dailyTimeHint: "tempo médio por usuário/dia no Instagram",
+  googleSearches: "13,7 bi",
+  googleSearchesHint: "pesquisas diárias no Google",
+  googleMarketShare: "90%+",
+  googleMarketShareHint: "do mercado global de buscas",
+  googleMapsUsers: "2 bi",
+  googleMapsHint: "usuários ativos mensais no Google Maps",
+  zeroClick: "60%+",
+  zeroClickHint: "buscas resolvidas na própria página (zero-click)",
+};
 
