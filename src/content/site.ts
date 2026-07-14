@@ -32,6 +32,8 @@ export const portfolio: PortfolioItem[] = [
 export type Plan = {
   name: string;
   desc: string;
+  price: string;
+  priceHint: string;
   features: string[];
   cta: string;
   featured: boolean;
@@ -41,6 +43,8 @@ export const plans: Plan[] = [
   {
     name: "Essencial",
     desc: "Presença profissional nas redes e no Google.",
+    price: "A partir de R$ 400",
+    priceHint: "/ mês",
     features: [
       "Gestão de redes sociais",
       "12 criativos/mês",
@@ -52,11 +56,13 @@ export const plans: Plan[] = [
   },
   {
     name: "Funil de conversão",
-    desc: "Criativos + anúncios + landing page em ciclo contínuo.",
+    desc: "Criativos + landing page + anúncios em ciclo contínuo.",
+    price: "R$ 657",
+    priceHint: "/ mês",
     features: [
       "Criativos personalizados (estáticos e vídeo)",
       "Landing page de conversão",
-      "Gestão de anúncios (Meta e Google)",
+      "Gestão de Meta Ads",
       "Relatório mensal simplificado",
       "Ajustes semanais de campanha",
     ],
@@ -66,6 +72,8 @@ export const plans: Plan[] = [
   {
     name: "Projetos avulsos",
     desc: "Entregas pontuais de design e landing page.",
+    price: "Sob consulta",
+    priceHint: "orçamento personalizado",
     features: [
       "Identidade visual",
       "Landing page (entrega única)",
