@@ -89,9 +89,10 @@ export type TeamMember = {
   name: string;
   role: string;
   desc: string;
-  initials: string;
+  icon: "Palette" | "Film" | "Target" | "MessageCircle" | "Search" | "BarChart3";
   color: string;
 };
+
 
 export const team: TeamMember[] = [
   {
