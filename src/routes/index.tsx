@@ -39,13 +39,17 @@ import logoDark from "@/assets/logo-dark.png.asset.json";
 import marketing1 from "@/assets/marketing-1.jpg.asset.json";
 import marketing2 from "@/assets/marketing-2.jpg.asset.json";
 import marketing3 from "@/assets/marketing-3.jpg.asset.json";
+import portifolioimagem from "@/assets/portifolioimagem.png.asset.json";
+import devicesMockup from "@/assets/devices-mockup.jpg.asset.json";
 import {
   ageDistribution,
   behaviorData,
   clients,
   engagementTrend,
+  formatData,
+  genderData,
+  googleData,
   plans,
-  portfolio,
   team,
 } from "@/content/site";
 
@@ -53,7 +57,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const WHATSAPP_URL = "https://wa.me/";
+const WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=%2B5566984010163";
 
 const BEHAVIOR_COLORS = ["oklch(0.65 0.22 275)", "oklch(0.6 0.24 300)", "oklch(0.28 0.02 275)"];
 
