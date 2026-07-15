@@ -8,13 +8,17 @@ import {
   ChevronRight,
   Compass,
   Film,
+  Gauge,
   Instagram,
   Layout,
+  LineChart as LineChartIcon,
   MessageCircle,
   Palette,
+  Play,
   Search,
   Sparkles,
   Target,
+  TrendingUp,
   Users,
   Zap,
 } from "lucide-react";
@@ -22,12 +26,8 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
-  Legend as RLegend,
   Line,
   LineChart,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -39,11 +39,12 @@ import logoDark from "@/assets/logo-dark.png.asset.json";
 import marketing1 from "@/assets/marketing-1.jpg.asset.json";
 import marketing2 from "@/assets/marketing-2.jpg.asset.json";
 import marketing3 from "@/assets/marketing-3.jpg.asset.json";
+import videoEdit from "@/assets/video-edit.jpg.asset.json";
+import traffic from "@/assets/traffic.jpg.asset.json";
 import portifolioimagem from "@/assets/portifolioimagem.png.asset.json";
 import devicesMockup from "@/assets/devices-mockup.png.asset.json";
 import {
   ageDistribution,
-  behaviorData,
   clients,
   dashboardHighlights,
   engagementTrend,
@@ -76,6 +77,8 @@ function Index() {
       <SocialFocus />
       <AudienceDashboard />
       <Funnel />
+      <VideoEditing />
+      <Traffic />
       <Portfolio />
       <DevicesShowcase />
       <Team />
@@ -100,8 +103,9 @@ function Nav() {
             ["Especialidade", "#redes"],
             ["Público", "#publico"],
             ["Solução", "#solucao"],
+            ["Vídeos", "#videos"],
+            ["Tráfego", "#trafego"],
             ["Portfólio", "#portfolio"],
-            ["Equipe", "#equipe"],
             ["Planos", "#planos"],
           ].map(([label, href]) => (
             <a
@@ -313,68 +317,60 @@ function SocialFocus() {
 /* ---------------- Audience Dashboard (redes sociais & Google) ---------------- */
 function AudienceDashboard() {
   return (
-    <section id="publico" className="relative py-28">
-      <div className="absolute inset-x-0 top-1/2 -z-10 h-[500px] -translate-y-1/2 bg-mesh opacity-40" />
+    <section id="publico" className="relative py-20">
+      <div className="absolute inset-x-0 top-1/2 -z-10 h-[380px] -translate-y-1/2 bg-mesh opacity-40" />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
+        <motion.div {...fadeUp} className="mx-auto mb-10 max-w-2xl text-center">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
             <BarChart3 className="h-3.5 w-3.5 text-brand-blue" />
             Público na internet · 2026
           </div>
-          <h2 className="text-4xl font-bold md:text-5xl">
+          <h2 className="text-3xl font-bold md:text-4xl">
             Onde seu público <span className="text-gradient">realmente está</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">
-            Dados atualizados de Instagram e Google que mostram a escala do comportamento online
-            e orientam cada campanha que criamos.
-          </p>
         </motion.div>
 
-        {/* Highlight tiles */}
-        <motion.div {...fadeUp} className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Tile
-            icon={Instagram}
-            label="Instagram"
-            value={dashboardHighlights.instagramUsers}
-            hint={dashboardHighlights.instagramUsersHint}
-            color="text-brand-pink"
-          />
-          <Tile
-            icon={Users}
-            label="Brasil"
-            value={dashboardHighlights.brazilInstagram}
-            hint={dashboardHighlights.brazilInstagramHint}
-            color="text-brand-purple"
-          />
-          <Tile
-            icon={Search}
-            label="Google"
-            value={dashboardHighlights.googleSearches}
-            hint={dashboardHighlights.googleSearchesHint}
-            color="text-brand-blue"
-          />
-          <Tile
-            icon={BarChart3}
-            label="Domínio mobile"
-            value={dashboardHighlights.googleMarketShare}
-            hint={dashboardHighlights.googleMarketShareHint}
-            color="text-brand-green"
-          />
+        <motion.div {...fadeUp} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <MiniTile icon={Instagram} label="Instagram" value={dashboardHighlights.instagramUsers} hint={dashboardHighlights.instagramUsersHint} color="text-brand-pink" />
+          <MiniTile icon={Users} label="Brasil" value={dashboardHighlights.brazilInstagram} hint={dashboardHighlights.brazilInstagramHint} color="text-brand-purple" />
+          <MiniTile icon={Search} label="Google" value={dashboardHighlights.googleSearches} hint={dashboardHighlights.googleSearchesHint} color="text-brand-blue" />
+          <MiniTile icon={BarChart3} label="Mobile" value={dashboardHighlights.googleMarketShare} hint={dashboardHighlights.googleMarketShareHint} color="text-brand-green" />
         </motion.div>
 
-        <div className="grid gap-6 lg:grid-cols-5">
-          {/* Faixa etária */}
-          <motion.div
-            {...fadeUp}
-            className="lg:col-span-2 rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur"
-          >
-            <div className="text-xs uppercase tracking-widest text-muted-foreground">
-              Faixa etária no Instagram
+        <div className="mt-4 grid gap-3 lg:grid-cols-5">
+          <motion.div {...fadeUp} className="lg:col-span-3 rounded-2xl border border-border bg-surface/60 p-5 backdrop-blur">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-[11px] uppercase tracking-widest text-muted-foreground">Engajamento por formato</div>
+                <h3 className="mt-0.5 text-sm font-semibold">Vídeo lidera em 2026</h3>
+              </div>
+              <div className="hidden gap-2 sm:flex">
+                <Legend color="oklch(0.65 0.22 275)" label="Carrossel" />
+                <Legend color="oklch(0.68 0.22 15)" label="Foto" />
+                <Legend color="oklch(0.75 0.2 155)" label="Vídeo" />
+              </div>
             </div>
-            <h3 className="mt-1 text-xl font-semibold">Maior grupo entre 25 e 34 anos</h3>
-            <div className="mt-6 h-56">
+            <div className="mt-3 h-40">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={ageDistribution} margin={{ top: 10, right: 10, left: -18, bottom: 0 }}>
+                <LineChart data={engagementTrend} margin={{ top: 6, right: 6, left: -22, bottom: 0 }}>
+                  <CartesianGrid stroke="oklch(1 0 0 / 0.06)" vertical={false} />
+                  <XAxis dataKey="d" stroke="oklch(0.68 0.02 260)" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke="oklch(0.68 0.02 260)" fontSize={11} tickLine={false} axisLine={false} />
+                  <Tooltip contentStyle={{ background: "oklch(0.18 0.012 260)", border: "1px solid oklch(1 0 0 / 0.1)", borderRadius: 10, color: "white", fontSize: 12 }} />
+                  <Line type="monotone" dataKey="carrossel" stroke="oklch(0.65 0.22 275)" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="foto" stroke="oklch(0.68 0.22 15)" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="video" stroke="oklch(0.75 0.2 155)" strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </motion.div>
+
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="lg:col-span-2 rounded-2xl border border-border bg-surface/60 p-5 backdrop-blur">
+            <div className="text-[11px] uppercase tracking-widest text-muted-foreground">Faixa etária · Instagram</div>
+            <h3 className="mt-0.5 text-sm font-semibold">25–34 é o maior grupo</h3>
+            <div className="mt-3 h-40">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={ageDistribution} margin={{ top: 6, right: 6, left: -22, bottom: 0 }}>
                   <defs>
                     <linearGradient id="barAge" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="oklch(0.65 0.22 275)" />
@@ -382,152 +378,11 @@ function AudienceDashboard() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid stroke="oklch(1 0 0 / 0.06)" vertical={false} />
-                  <XAxis
-                    dataKey="faixa"
-                    stroke="oklch(0.68 0.02 260)"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                  />
-                  <YAxis
-                    stroke="oklch(0.68 0.02 260)"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    unit="%"
-                  />
-                  <Tooltip
-                    cursor={{ fill: "oklch(1 0 0 / 0.04)" }}
-                    contentStyle={{
-                      background: "oklch(0.18 0.012 260)",
-                      border: "1px solid oklch(1 0 0 / 0.1)",
-                      borderRadius: 12,
-                      color: "white",
-                    }}
-                    formatter={(v: number) => `${v}%`}
-                  />
-                  <Bar dataKey="pct" fill="url(#barAge)" radius={[10, 10, 0, 0]} />
+                  <XAxis dataKey="faixa" stroke="oklch(0.68 0.02 260)" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke="oklch(0.68 0.02 260)" fontSize={11} tickLine={false} axisLine={false} unit="%" />
+                  <Tooltip contentStyle={{ background: "oklch(0.18 0.012 260)", border: "1px solid oklch(1 0 0 / 0.1)", borderRadius: 10, color: "white", fontSize: 12 }} formatter={(v: number) => `${v}%`} />
+                  <Bar dataKey="pct" fill="url(#barAge)" radius={[8, 8, 0, 0]} />
                 </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
-
-          {/* Engajamento por formato */}
-          <motion.div
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.08 }}
-            className="lg:col-span-3 rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                  Taxa de engajamento por formato
-                </div>
-                <h3 className="mt-1 text-xl font-semibold">Foto, carrossel e vídeo</h3>
-              </div>
-              <div className="hidden gap-3 sm:flex">
-                <Legend color="oklch(0.65 0.22 275)" label="Carrossel" />
-                <Legend color="oklch(0.68 0.22 15)" label="Foto" />
-                <Legend color="oklch(0.75 0.2 155)" label="Vídeo" />
-              </div>
-            </div>
-            <div className="mt-6 h-56">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={engagementTrend} margin={{ top: 10, right: 10, left: -18, bottom: 0 }}>
-                  <CartesianGrid stroke="oklch(1 0 0 / 0.06)" vertical={false} />
-                  <XAxis dataKey="d" stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="oklch(0.68 0.02 260)" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip
-                    contentStyle={{
-                      background: "oklch(0.18 0.012 260)",
-                      border: "1px solid oklch(1 0 0 / 0.1)",
-                      borderRadius: 12,
-                      color: "white",
-                    }}
-                  />
-                  <Line type="monotone" dataKey="carrossel" stroke="oklch(0.65 0.22 275)" strokeWidth={2.5} dot={false} />
-                  <Line type="monotone" dataKey="foto" stroke="oklch(0.68 0.22 15)" strokeWidth={2.5} dot={false} />
-                  <Line type="monotone" dataKey="video" stroke="oklch(0.75 0.2 155)" strokeWidth={2.5} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Amostra Mlabs · 102.952 posts em 3.875 perfis.
-            </p>
-          </motion.div>
-
-          {/* Comportamento */}
-          <motion.div
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.16 }}
-            className="rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur lg:col-span-3"
-          >
-            <div className="text-xs uppercase tracking-widest text-muted-foreground">
-              Comportamento — Instagram
-            </div>
-            <h3 className="mt-1 text-xl font-semibold">70% usam o app para decidir compras</h3>
-            <ul className="mt-6 space-y-4">
-              {behaviorData.map((b, i) => (
-                <li key={b.name}>
-                  <div className="mb-1 flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">{b.name}</span>
-                    <span className="font-semibold">{b.value}%</span>
-                  </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-background/70">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${b.value}%` }}
-                      transition={{ duration: 1.2, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }}
-                      viewport={{ once: true }}
-                      className="h-full rounded-full"
-                      style={{ background: BEHAVIOR_COLORS[i] }}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Divisão de gênero */}
-          <motion.div
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.24 }}
-            className="rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur lg:col-span-2"
-          >
-            <div className="text-xs uppercase tracking-widest text-muted-foreground">Gênero</div>
-            <h3 className="mt-1 text-xl font-semibold">Divisão quase equilibrada</h3>
-            <div className="mt-4 h-40">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={[
-                      { name: "Homens", value: 50.6 },
-                      { name: "Mulheres", value: 49.4 },
-                    ]}
-                    dataKey="value"
-                    innerRadius={40}
-                    outerRadius={65}
-                    paddingAngle={3}
-                    stroke="none"
-                  >
-                    <Cell fill="oklch(0.65 0.22 275)" />
-                    <Cell fill="oklch(0.68 0.22 15)" />
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      background: "oklch(0.18 0.012 260)",
-                      border: "1px solid oklch(1 0 0 / 0.1)",
-                      borderRadius: 12,
-                      color: "white",
-                    }}
-                    formatter={(v: number) => `${v}%`}
-                  />
-                  <RLegend
-                    verticalAlign="bottom"
-                    height={20}
-                    wrapperStyle={{ fontSize: 12, color: "oklch(0.68 0.02 260)" }}
-                  />
-                </PieChart>
               </ResponsiveContainer>
             </div>
           </motion.div>
@@ -537,50 +392,40 @@ function AudienceDashboard() {
   );
 }
 
-function Tile({
-  icon: Icon,
-  label,
-  value,
-  hint,
-  color,
-}: {
-  icon: typeof Users;
-  label: string;
-  value: string;
-  hint: string;
-  color: string;
-}) {
+function MiniTile({ icon: Icon, label, value, hint, color }: { icon: typeof Users; label: string; value: string; hint: string; color: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-surface/60 p-5 backdrop-blur">
+    <div className="rounded-2xl border border-border bg-surface/60 p-4 backdrop-blur">
       <div className="flex items-center justify-between">
-        <span className="text-xs uppercase tracking-widest text-muted-foreground">{label}</span>
-        <Icon className={`h-4 w-4 ${color}`} />
+        <span className="text-[11px] uppercase tracking-widest text-muted-foreground">{label}</span>
+        <Icon className={`h-3.5 w-3.5 ${color}`} />
       </div>
-      <div className="mt-3 text-3xl font-bold">{value}</div>
-      <div className="mt-1 text-xs text-muted-foreground">{hint}</div>
+      <div className="mt-1.5 text-xl font-bold">{value}</div>
+      <div className="mt-0.5 text-[11px] leading-snug text-muted-foreground">{hint}</div>
     </div>
   );
 }
 
 function Legend({ color, label }: { color: string; label: string }) {
   return (
-    <span className="flex items-center gap-2 text-xs text-muted-foreground">
-      <span className="h-2.5 w-2.5 rounded-full" style={{ background: color }} />
+    <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+      <span className="h-2 w-2 rounded-full" style={{ background: color }} />
       {label}
     </span>
   );
 }
 
-/* ---------------- Funnel (Solução) ---------------- */
+/* ---------------- Funnel (Solução) — funil visual + cards conectados ---------------- */
 function Funnel() {
   const steps = [
     { icon: Sparkles, tag: "01", title: "Criativo", desc: "Peças personalizadas para cada oferta, formato e público." },
-    { icon: Target, tag: "02", title: "Anúncio", desc: "Campanhas em Meta e Google configuradas e otimizadas por semana." },
+    { icon: Target, tag: "02", title: "Anúncio", desc: "Campanhas Meta e Google configuradas e otimizadas semanalmente." },
     { icon: Layout, tag: "03", title: "Landing page", desc: "Página de conversão com foco no clique para o WhatsApp." },
-    { icon: MessageCircle, tag: "04", title: "Contato", desc: "Lead chega direto no seu comercial, pronto para conversar." },
+    { icon: MessageCircle, tag: "04", title: "Contato", desc: "Lead chega direto no comercial, pronto para conversar." },
   ];
+  // 4 trapézios do funil, larguras decrescentes (100% -> 22%)
+  const bands = [100, 74, 48, 22];
   return (
-    <section id="solucao" className="relative py-28">
+    <section id="solucao" className="relative py-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
@@ -588,39 +433,163 @@ function Funnel() {
             Solução
           </div>
           <h2 className="text-4xl font-bold md:text-5xl">
-            Um <span className="text-gradient">funil simples</span> e direto
+            Um <span className="text-gradient">funil</span> que conecta cada etapa
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Quatro etapas conectadas, sem promessas mágicas. Só o trabalho bem feito, em ciclo
-            contínuo.
+            Quatro estágios ligados entre si — do primeiro impacto ao contato no WhatsApp.
           </p>
         </motion.div>
 
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <motion.div
-                key={s.title}
-                {...fadeUp}
-                transition={{ ...fadeUp.transition, delay: i * 0.08 }}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-surface/60 p-6 shadow-elegant backdrop-blur transition-transform hover:-translate-y-1"
-              >
-                <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-brand opacity-0 blur-3xl transition-opacity group-hover:opacity-30" />
-                <div className="flex items-center justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background text-brand-purple">
+        <div className="grid gap-10 lg:grid-cols-[minmax(280px,420px)_1fr] lg:items-center">
+          {/* Funil visual */}
+          <motion.div {...fadeUp} className="relative mx-auto w-full max-w-sm">
+            <div className="flex flex-col items-center gap-2">
+              {bands.map((w, i) => (
+                <div key={i} className="relative w-full" style={{ height: 64 }}>
+                  <div
+                    className="absolute left-1/2 top-0 h-full -translate-x-1/2 rounded-md border border-white/10 shadow-glow"
+                    style={{
+                      width: `${w}%`,
+                      clipPath: `polygon(0 0, 100% 0, ${100 - 8}% 100%, 8% 100%)`,
+                      background: `linear-gradient(135deg, oklch(0.65 0.22 275 / ${0.85 - i * 0.12}), oklch(0.6 0.24 300 / ${0.85 - i * 0.12}))`,
+                    }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-white/90">
+                      {steps[i].title}
+                    </span>
+                  </div>
+                  {/* linha de conexão para o card */}
+                  <div className="pointer-events-none absolute left-full top-1/2 hidden h-px w-16 -translate-y-1/2 bg-gradient-to-r from-brand-purple/70 to-transparent lg:block" />
+                  <div className="pointer-events-none absolute left-[calc(100%+3.5rem)] top-1/2 hidden h-2 w-2 -translate-y-1/2 rounded-full bg-brand-purple shadow-glow lg:block" />
+                </div>
+              ))}
+            </div>
+            <div className="pointer-events-none absolute -inset-8 -z-10 bg-gradient-brand opacity-20 blur-3xl" />
+          </motion.div>
+
+          {/* Cards ligados */}
+          <div className="space-y-3">
+            {steps.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <motion.div
+                  key={s.title}
+                  {...fadeUp}
+                  transition={{ ...fadeUp.transition, delay: i * 0.06 }}
+                  className="group relative flex items-start gap-4 rounded-2xl border border-border bg-surface/60 p-5 backdrop-blur transition-transform hover:-translate-y-0.5"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-background text-brand-purple">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    {s.tag}
-                  </span>
-                </div>
-                <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-              </motion.div>
-            );
-          })}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">{s.tag}</span>
+                      <h3 className="text-base font-semibold">{s.title}</h3>
+                    </div>
+                    <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Video Editing ---------------- */
+function VideoEditing() {
+  const items = [
+    { icon: Play, title: "Reels & Shorts", desc: "Cortes rápidos, ganchos nos 3s iniciais, legendas dinâmicas." },
+    { icon: Film, title: "VSLs e vídeos de venda", desc: "Roteiro, edição e ritmo pensados para conversão." },
+    { icon: Sparkles, title: "Motion & efeitos", desc: "Animações discretas que reforçam a mensagem, sem poluir." },
+  ];
+  return (
+    <section id="videos" className="relative py-24">
+      <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-2 lg:items-center">
+        <motion.div {...fadeUp}>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
+            <Film className="h-3.5 w-3.5 text-brand-pink" />
+            Edição de vídeos
+          </div>
+          <h2 className="text-4xl font-bold md:text-5xl">
+            Vídeos que <span className="text-gradient">seguram o olhar</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Do primeiro frame ao CTA final — cortes, ritmo e trilha alinhados ao formato e ao público.
+          </p>
+          <ul className="mt-8 space-y-5">
+            {items.map(({ icon: Icon, title, desc }) => (
+              <li key={title} className="flex gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-brand shadow-glow">
+                  <Icon className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">{title}</h4>
+                  <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <motion.div {...fadeUp} className="relative order-first lg:order-last">
+          <div className="relative overflow-hidden rounded-3xl border border-border shadow-elegant">
+            <img src={videoEdit.url} alt="Estação de edição de vídeo" width={1200} height={900} loading="lazy" className="h-full w-full object-cover" />
+          </div>
+          <div className="absolute -bottom-8 -left-6 h-40 w-40 rounded-full bg-brand-pink/30 blur-3xl" />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Traffic / Meta Ads ---------------- */
+function Traffic() {
+  const items = [
+    { icon: Target, title: "Estrutura de campanha", desc: "Objetivo, públicos, criativos e orçamento organizados por funil." },
+    { icon: Gauge, title: "Otimização semanal", desc: "Leitura de dados, pausa do que não performa e escala do que vende." },
+    { icon: TrendingUp, title: "Escala controlada", desc: "Crescimento sustentável de investimento sem perder CPA." },
+    { icon: LineChartIcon, title: "Relatório claro", desc: "Métricas que importam: CPL, CPA, ROAS — sem enrolação." },
+  ];
+  return (
+    <section id="trafego" className="relative overflow-hidden py-24">
+      <div className="absolute inset-0 bg-mesh opacity-40" />
+      <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-2 lg:items-center">
+        <motion.div {...fadeUp} className="relative">
+          <div className="relative overflow-hidden rounded-3xl border border-border shadow-elegant">
+            <img src={traffic.url} alt="Gestão de tráfego pago Meta Ads" width={1200} height={900} loading="lazy" className="h-full w-full object-cover" />
+          </div>
+          <div className="absolute -top-8 -right-6 h-40 w-40 rounded-full bg-brand-blue/30 blur-3xl" />
+        </motion.div>
+
+        <motion.div {...fadeUp}>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground">
+            <Target className="h-3.5 w-3.5 text-brand-blue" />
+            Gestão de tráfego · Meta Ads
+          </div>
+          <h2 className="text-4xl font-bold md:text-5xl">
+            Investimento com <span className="text-gradient">direção</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Meta Ads (Instagram e Facebook) estruturado por funil, otimizado semana a semana e reportado com clareza.
+          </p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {items.map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="rounded-2xl border border-border bg-surface/60 p-4 backdrop-blur">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-brand shadow-glow">
+                    <Icon className="h-4 w-4 text-white" />
+                  </div>
+                  <h4 className="text-sm font-semibold">{title}</h4>
+                </div>
+                <p className="mt-2 text-xs text-muted-foreground">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
