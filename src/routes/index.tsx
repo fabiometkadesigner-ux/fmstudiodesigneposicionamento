@@ -8,13 +8,17 @@ import {
   ChevronRight,
   Compass,
   Film,
+  Gauge,
   Instagram,
   Layout,
+  LineChart as LineChartIcon,
   MessageCircle,
   Palette,
+  Play,
   Search,
   Sparkles,
   Target,
+  TrendingUp,
   Users,
   Zap,
 } from "lucide-react";
@@ -22,12 +26,8 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
-  Legend as RLegend,
   Line,
   LineChart,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -39,11 +39,12 @@ import logoDark from "@/assets/logo-dark.png.asset.json";
 import marketing1 from "@/assets/marketing-1.jpg.asset.json";
 import marketing2 from "@/assets/marketing-2.jpg.asset.json";
 import marketing3 from "@/assets/marketing-3.jpg.asset.json";
+import videoEdit from "@/assets/video-edit.jpg.asset.json";
+import traffic from "@/assets/traffic.jpg.asset.json";
 import portifolioimagem from "@/assets/portifolioimagem.png.asset.json";
 import devicesMockup from "@/assets/devices-mockup.png.asset.json";
 import {
   ageDistribution,
-  behaviorData,
   clients,
   dashboardHighlights,
   engagementTrend,
